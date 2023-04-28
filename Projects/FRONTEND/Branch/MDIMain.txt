@@ -1,0 +1,40 @@
+public void Company_Initialization()
+        {
+            DataTable Dt = new DataTable();
+            DataTable Dt_1 = new DataTable();
+            try
+            {
+                Str = "\\\\192.168.1.201\\vaahini\\VSocks";
+
+                if (Environment.MachineName.ToUpper() != "SONY")
+                {
+                    if (MyBase.Check_Exe("VSocks", Str) == false)
+                    {
+                        MessageBox.Show("Updating VSocks ....!", "Auto Update");
+                        StreamWriter SW = new StreamWriter("C:\\Vaahrep\\EP.txt");
+                        SW.WriteLine(Str);
+                        SW.Close();
+                        Update_Flag = true;
+                        //this.Close();
+
+                        MyBase.Run_UpdateExe("C:\\ERP\\ERP_Batch\\VSocks.Bat");
+                        Application.Exit();
+                        return;
+                    }
+                }
+
+                //EmplNo_TA = Convert.ToInt64(MyBase.GetData_InString("Socks_User_Master", "User_Name", UserName, "Emplno"));
+
+                EmplNo_TA = Convert.ToInt64(MyBase.GetData_InString("Socks_Login()", "User_Name", UserName, "Emplno"));
+
+                UserSettings();
+                if (UserCode != 1 && UserCode != 2 && UserName.ToString().Contains("GK") == true )
+                {
+                    Completion_Entry(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
